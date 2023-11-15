@@ -1,6 +1,6 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { TodoModalComponent } from "./components/todo-modal/todo-modal.component";
 import { ModalService } from "./services/modal.service";
 import { NgIconComponent, provideIcons } from "@ng-icons/core";
@@ -12,8 +12,7 @@ import { TodoItemComponent } from "./components/todo-item/todo-item.component";
 import { TodoService } from "./services/todo.service";
 import { FilterTodosPipe } from "./pipes/filter-todos.pipe";
 import { FormsModule } from "@angular/forms";
-import { NgxPaginationModule, PaginationInstance, PaginationService } from "ngx-pagination";
-import { tap } from "rxjs";
+import { NgxPaginationModule, PaginationInstance } from "ngx-pagination";
 
 @Component({
   selector: 'app-root',

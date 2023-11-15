@@ -11,6 +11,8 @@
     (focusout)="todoService.changeTitle(todo.id, todo.title).subscribe()"
   >
   <div class="flex gap-3 items-center">
+    <p class="opacity-50">{{ todo.createdAt | date:'dd.MM | hh:mm'}}</p>
+    <p class="opacity-50" *ngIf="todo.createdAt !== todo.updatedAt">[{{ todo.updatedAt | date:'dd.MM | hh:mm'}}]</p>
     <button class="h-[18px]" (click)="todoService.changeComplete(todo.id).subscribe()">
       <ng-icon *ngIf="todo.isCompleted" name="ionCheckbox" size="18"></ng-icon>
       <ng-icon class="opacity-50" *ngIf="!todo.isCompleted" name="ionCheckboxOutline" size="18"></ng-icon>

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ITodo } from "../models/todo.interface";
 import { HttpClient } from "@angular/common/http";
 import { Observable, retry, tap } from "rxjs";
-import * as http from "http";
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +33,7 @@ export class TodoService {
 
           if (findTodo) {
             findTodo.title = newTitle
+            findTodo.updatedAt = new Date().toUTCString()
           }
 
           return findTodo
@@ -48,6 +48,7 @@ export class TodoService {
 
         if (findTodo) {
           findTodo.isCompleted = !findTodo.isCompleted
+          findTodo.updatedAt = new Date().toUTCString()
         }
 
         return findTodo
