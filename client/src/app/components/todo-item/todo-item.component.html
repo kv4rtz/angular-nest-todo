@@ -1,0 +1,22 @@
+<li
+  class="flex transition-all justify-between items-center py-3 px-5 rounded-lg bg-gradient-to-b border border-gray-600 border-t-gray-500"
+  [ngClass]="{
+    'from-black to-black': todo.isCompleted,
+    'from-gray-900 to-gray-950': !todo.isCompleted,
+  }"
+>
+  <input
+    class="opacity-70 text-sm flex-grow bg-transparent outline-none focus:underline"
+    [(ngModel)]="todo.title"
+    (focusout)="todoService.changeTitle(todo.id, todo.title).subscribe()"
+  >
+  <div class="flex gap-3 items-center">
+    <button class="h-[18px]" (click)="todoService.changeComplete(todo.id).subscribe()">
+      <ng-icon *ngIf="todo.isCompleted" name="ionCheckbox" size="18"></ng-icon>
+      <ng-icon class="opacity-50" *ngIf="!todo.isCompleted" name="ionCheckboxOutline" size="18"></ng-icon>
+    </button>
+    <button class="h-[18px]" (click)="todoService.delete(todo.id).subscribe()">
+      <ng-icon name="ionClose" size="18"></ng-icon>
+    </button>
+  </div>
+</li>

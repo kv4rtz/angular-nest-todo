@@ -1,0 +1,21 @@
+<form [formGroup]="form" class="flex flex-col gap-3" (submit)="submit()">
+  <input
+    class="outline-none bottom-5 bg-transparent right-5 py-3 px-5 rounded-lg border border-gray-600 border-t-gray-500 hover:border-gray-500 hover:border-t-gray-400 transition-all focus:border-blue-300 focus:border-t-blue-200"
+    type="text"
+    placeholder="Название задачи"
+    [formControlName]="'title'"
+  >
+  <p
+    class="text-red-400"
+    *ngIf="title.errors?.minlength && title.touched"
+  >
+    Минимальная длина 4 символа (У вас: {{ title.value.length }})
+  </p>
+  <p
+    class="text-red-400"
+    *ngIf="title.errors?.maxlength && title.touched"
+  >
+    Минимальная длина 16 символов (У вас: {{ title.value.length }})
+  </p>
+  <ui-button [isDisabled]="title.errors !== null">Создать</ui-button>
+</form>

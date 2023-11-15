@@ -1,0 +1,13 @@
+<div
+  (click)="modalService.close()"
+  class="fixed z-10 top-0 left-0 right-0 bottom-0 bg-black/50"
+></div>
+
+<div
+    class="w-[500px] z-20 absolute top-10 left-1/2 -translate-x-1/2 bg-black/85 backdrop-blur-xl rounded-lg border border-gray-600 border-t-gray-500 rounded p-5"
+>
+  <h2 class="mb-5 text-lg font-bold text-center">
+    <ui-title>{{ title | modalTitle }}</ui-title>
+  </h2>
+  <ng-content></ng-content>
+</div>

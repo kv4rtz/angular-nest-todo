@@ -1,0 +1,72 @@
+<div class="w-[700px] container mx-auto mt-5">
+  <h1 class="block text-3xl text-center">
+    <ui-title>Angular. Задачи</ui-title>
+  </h1>
+  <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-600 to-transparent my-5"></div>
+
+  <input
+    class="w-full mb-2 outline-none bottom-5 bg-transparent right-5 py-3 px-5 rounded-lg border border-gray-600 border-t-gray-500 hover:border-gray-500 hover:border-t-gray-400 transition-all focus:border-blue-300 focus:border-t-blue-200"
+    type="text"
+    placeholder="Поиск по задачам..."
+    [(ngModel)]="term"
+  >
+
+  <div class="mb-5 flex gap-2">
+    <ui-button (click)="term = 'true'" class="flex-grow">Выполненые</ui-button>
+    <ui-button (click)="term = 'false'" class="flex-grow">Невыполненые</ui-button>
+    <ui-button (click)="term = ''" class="flex-grow">Все</ui-button>
+  </div>
+
+  <ul class="flex flex-col gap-2">
+    <app-todo-item *ngFor="let todo of todoService.todos | filterTodos:term | paginate:config" [todo]="todo"></app-todo-item>
+  </ul>
+  <pagination-template #p="paginationApi" [id]="config.id!" (pageChange)="config.currentPage = $event">
+    <div class="fixed left-1/2 -translate-x-1/2 bottom-5 flex gap-16 justify-center items-center">
+      <div
+        class="h-[16px] cursor-pointer select-none transition-all hover:opacity-100"
+        [ngClass]="{
+          'opacity-30': p.isFirstPage(),
+          'opacity-50': !p.isFirstPage()
+        }"
+      >
+        <a class="h-[16px] inline-block" (click)="p.previous()" ><ng-icon size="16" name="ionChevronBackOutline"></ng-icon></a>
+      </div>
+
+      <div class="flex gap-3">
+        <div class="cursor-pointer select-none" *ngFor="let page of p.pages">
+          <a class="transition-all hover:text-gray-100" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value" [ngClass]="{
+          'text-gray-50': p.getCurrent() === page.value,
+          'text-gray-700': p.getCurrent() !== page.value
+        }"
+          >{{ page.label }}
+          </a>
+          <div *ngIf="p.getCurrent() === page.value">
+            <span>{{ page.label }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="h-[16px] cursor-pointer select-none transition-all hover:opacity-100"
+        [ngClass]="{
+          'opacity-30': p.isLastPage(),
+          'opacity-50': !p.isLastPage()
+        }"
+      >
+        <a class="h-[16px] inline-block" (click)="p.next()"><ng-icon size="16" name="ionChevronForwardOutline"></ng-icon></a>
+      </div>
+    </div>
+  </pagination-template>
+</div>
+
+<app-todo-modal *ngIf="modalService.isVisible$ | async" [modal-title]="'Создать новую задачу'">
+  <app-form-new-todo></app-form-new-todo>
+</app-todo-modal>
+
+<ui-button
+  class="fixed bottom-5 right-5"
+  (click)="modalService.open()"
+>
+  <ng-icon name="ionAdd" size="24"></ng-icon>
+  Добавить задачу
+</ui-button>
