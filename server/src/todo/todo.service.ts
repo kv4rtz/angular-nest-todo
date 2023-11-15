@@ -5,8 +5,7 @@ import { CreateTodoDto } from "./dto/create-todo.dto";
 
 @Injectable()
 export class TodoService {
-    constructor(@InjectModel(Todo) private todoDataBase: typeof Todo) {
-    }
+    constructor(@InjectModel(Todo) private todoDataBase: typeof Todo) {}
 
     async getAll() {
         return await this.todoDataBase.findAll();

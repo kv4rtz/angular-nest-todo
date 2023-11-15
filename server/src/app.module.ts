@@ -5,14 +5,12 @@ import * as process from "process";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import * as path from "path";
 import { Todo } from "./todo/todo.model";
+import { TodoModule } from "./todo/todo.module";
 
 @Module({
     controllers: [],
     providers: [],
     imports: [
-        ServeStaticModule.forRoot({
-            rootPath: path.resolve(__dirname, 'static')
-        }),
         ConfigModule.forRoot({
             envFilePath: `.${process.env.NODE_ENV}.env`
         }),
@@ -26,7 +24,8 @@ import { Todo } from "./todo/todo.model";
             models: [Todo],
             autoLoadModels: true
         }),
-    ]
+        TodoModule
+    ],
 })
 export class AppModule {
 }
